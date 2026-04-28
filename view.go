@@ -1,7 +1,8 @@
 package main
 
-func (m model) View() string {
-	return `
+import "fmt"
+
+const banner = `
  /$$$$$$$$ /$$     /$$ /$$$$$$$$  /$$$$$$ 
 |__  $$__/|  $$   /$$/|_____ $$  /$$__  $$
    | $$    \  $$ /$$/      /$$/ | $$  \ $$
@@ -10,10 +11,22 @@ func (m model) View() string {
    | $$       | $$      /$$/    | $$  | $$
    | $$       | $$     /$$$$$$$$| $$  | $$
    |__/       |__/    |________/|__/  |__/
-                                          
-                                          
-                                          
-
-        Press q to quit
 `
+
+func (m model) View() string {
+
+	switch m.screen {
+
+	case "typing":
+		return fmt.Sprintf("%s\nTyping test screen\n\nPress 'b' to go back\n", banner)
+
+	case "logs":
+		return "Logs screen\n\nPress 'b' to go back\n"
+
+	case "other":
+		return "Other stuff\n\nPress 'b' to go back\n"
+
+	default:
+		return m.list.View()
+	}
 }
